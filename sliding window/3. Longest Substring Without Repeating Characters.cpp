@@ -1,16 +1,15 @@
 class Solution {
 public:
-    int lengthOfLongestSubstring(string word) {
-        string s = "";
-        int res = 0;
-        for(auto ch:word){
-            while(s.find(ch) < s.size()){
-                s = s.substr(1);
-            }
-            s += ch;
-            int sz = s.size();
-            res = max(res,sz);
+    int lengthOfLongestSubstring(string s) {
+        int n = s.size();
+        int i = 0, j = 0, max_len = 0;
+        unordered_set<char> char_set;
+        while (j < n) {
+            if (!char_set.count(s[j])) {
+                char_set.insert(s[j++]);
+                max_len = max(max_len, j - i);
+            } else char_set.erase(s[i++]);
         }
-        return res;    
+        return max_len;
     }
 };
